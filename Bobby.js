@@ -1,5 +1,5 @@
 var health = 20;
-
+//I don't know what I may do. Help would be appreciated.
 var death = 0;
 var commands = ["attack-Add Description","block-Add Description","run-Add Description","backpack-Open your list of items acquired on your journey", "equip-equip one of your items included in your backpacks"];
 var backpack = ["Blunt Cleaver", "Shattered Dagger"]
