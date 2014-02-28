@@ -1,3 +1,4 @@
+//Replace "if" with "switch(willHit)"
 var health = 20;
 //I don't know what I may do. Help would be appreciated.
 var death = 0;
