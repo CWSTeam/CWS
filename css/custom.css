@@ -6,3 +6,8 @@ border-color: black;
 border-width: 0px 8px 0px 0px;
 padding: 10px;
 }
+
+#wrap
+{
+box-shadow: 10px 10px 5px #888888;
+}
