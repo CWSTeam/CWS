@@ -1,4 +1,58 @@
-	<?php session_start(); ?>
+<?php
+include("init/db.php");
+
+$firstpassword = mysqli_real_escape_string($_POST["rpasswordfirst"]);
+$secondpassword = mysqli_real_escape_string($_POST["rpasswordsecond"]);
+$email = mysqli_real_escape_string($_POST["remail"]);
+$username = mysqli_real_escape_string($_POST["rusername"]);
+
+$usernameCheck = mysqli_query("SELECT username FROM members WHERE username='$username'");
+if(mysqli_num_rows($usernameCheck) != 0){
+echo("
+<div class='alert alert-danger alert-dismissable'>
+<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+Username is already in use!
+</div>"
+);
+}
+
+$emailCheck = mysqli_query("SELECT email FROM members WHERE email='$email'");
+if(mysqli_num_rows($emailCheck) != 0){
+echo("
+<div class='alert alert-danger alert-dismissable'>
+<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+Email is already in use!
+</div>"
+);
+}
+
+if($firstpassword != $secondpassword){
+echo("
+<div class='alert alert-danger alert-dismissable'>
+<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+Passwords are not equal!
+</div>"
+);
+}
+
+elseif(filter_var($email, FILTER_VALIDATE_EMAIL)){
+echo("
+<div class='alert alert-danger alert-dismissable'>
+<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+Please enter a valid email!
+</div>"
+);
+}
+else {
+echo("
+<div class='alert alert-success alert-dismissable'>
+<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+Yay! It worked!
+</div>"
+);
+}
+
+?>		
 		
 		<!DOCTYPE html>
 		<html>
@@ -6,7 +60,7 @@
 		    <meta charset="utf-8">
 		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		    <meta name="viewport" content="width=device-width, initial-scale=1">
-		    <title>Bootstrap 101 Template</title>
+		    <title>Binum Group - Register</title>
 		
 		    <!-- Bootstrap -->
 		    <link href="css/bootstrap.css" rel="stylesheet">
@@ -20,7 +74,7 @@
 		    <![endif]-->
 		  </head>
 		  <body background="images/bckg.png">
-		    <nav class="navbar navbar-default" role="navigation">
+		  <nav class="navbar navbar-default" role="navigation">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
@@ -52,41 +106,44 @@
 		      <ul class="nav navbar-nav navbar-right">
 		        <li class="active"><a href="register.php"> Register </a></li>
 		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
+		    </div> <!-- /.navbar-collapse -->
+		  </div> <!-- /.container-fluid -->
 		</nav>
 		
 			
 			<div class="container-fluid">
 			
 			<div class="row col-xs-12" id="left-sidebar">
-					<form action="index.php" method="post" class="registration_form">
-	  <fieldset>
-	    <legend>Registration Form </legend>
-	
-	    <p>Create A new Account <span style="background:#EAEAEA none repeat scroll 0 0;line-height:1;margin-left:210px;;padding:5px 7px;">
-	Already a member? <a href="login.php">Log in</a></span> </p>
-	
-	    <div class="elements">
-	      <label for="name">Name :</label>
-	      <input type="text" class="form-control" id="name" name="name" size="25" />
-	    </div>
-	    <div class="elements">
-	      <label for="e-mail">E-mail :</label>
-	      <input type="text" class="form-control" id="e-mail" name="e-mail" size="25" />
-	    </div>
-	    <div class="elements">
-	      <label for="Password">Password:</label>
-	      <input type="password" class="form-control" id="Password" name="Password" size="25" />
-	    </div>
-	    <div class="submit">
-	    <br />
-	     <input type="hidden" name="formsubmitted" value="TRUE" />
-	      <input type="submit" class="btn btn-primary" value="Register" />
-	    </div>
-	  </fieldset>
-	</form>
-	
+				<form>
+					<fieldset>
+						<legend>Account</legend>
+						<div class="elements">
+						<label for="rusername">Username: </label>
+						<input type="text" id="rusername" name="rusername" size="17" class="form-control" />
+						</div>
+						
+						<div class="elements">
+						<label for="rpasswordfirst">Password: </label>
+						<input type="password" id="rpasswordfirst" name="rpasswordfirst" size="30" class="form-control" />						
+						</div>
+						
+						<div class="elements">
+						<label for="rpasswordsecond">Password Again: </label>
+						<input type="password" id="rpasswordsecond" name="rpasswordsecond" size="30" class="form-control" />
+						</div>
+						
+						<div class="elements">
+						<label for="remail">Email: </label>
+						<input type="text" id="remail" name="remail" size="50" class="form-control" />
+						</div>
+						
+						<br />						
+						
+						<div class="elements">
+						<input type="submit" class="btn btn-primary" />
+						</div>			
+					</fieldset>				
+				</form>
 			</div>		
 					
 			</div>
